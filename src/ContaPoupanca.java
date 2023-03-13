@@ -7,9 +7,6 @@ public class ContaPoupanca extends Conta{
         return saldoPP;
     }
 
-    public void setSaldoPP(double saldoPP) {
-        this.saldoPP = saldoPP;
-    }
     @Override
     public double depositar(double valor) {
 

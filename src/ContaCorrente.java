@@ -8,10 +8,6 @@ public class ContaCorrente extends Conta{
         return saldoCC;
     }
 
-    public void setSaldoCC(double saldoCC) {
-        this.saldoCC = saldoCC;
-    }
-
     @Override
     public double depositar(double valor) {
         saldoCC= saldoCC + valor;
