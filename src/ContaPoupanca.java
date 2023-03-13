@@ -24,7 +24,7 @@ public class ContaPoupanca extends Conta{
     @Override
     public double sacar(double valor) {
 
-        if(saldoPP<valor && !isClienteEspecial()) {
+        if(saldoPP<valor) {
 
             Imprimir.i(ContaCorrente.VALOR_INSUFICIENTE);}
 
@@ -46,8 +46,6 @@ public class ContaPoupanca extends Conta{
     @Override
     public void infClienteEspecial(String msg) {
 
-        if (msg.equalsIgnoreCase("S")) {
-            setClienteEspecial(true);
-        }
+        setClienteEspecial(msg.equalsIgnoreCase("S"));
     }
 }

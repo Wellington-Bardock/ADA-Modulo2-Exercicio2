@@ -40,8 +40,6 @@ public class ContaCorrente extends Conta{
     @Override
     public void infClienteEspecial(String msg) {
 
-        if (msg.equalsIgnoreCase("S")) {
-            setClienteEspecial(true);
-        } else setClienteEspecial(false);
+        setClienteEspecial(msg.equalsIgnoreCase("S"));
     }
 }
