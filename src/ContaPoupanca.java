@@ -16,9 +16,11 @@ public class ContaPoupanca extends Conta{
             saldoPP = saldoPP + (valor * taxaClienteEsp);
         }
 
-        else saldoPP = saldoPP + valor;
+        else {saldoPP = saldoPP + valor;
 
-        return 0;
+        } Imprimir.i(ContaCorrente.TRANSACAO_EFETUADA);
+
+        return saldoPP;
     }
 
     @Override
@@ -31,21 +33,20 @@ public class ContaPoupanca extends Conta{
         else {saldoPP= saldoPP-valor;
             Imprimir.i(ContaCorrente.TRANSACAO_EFETUADA);}
 
-        return 0;
+        return saldoPP;
     }
 
     @Override
     public void exibirSaldo() {
 
-        Imprimir.i(String.format("Nome: %s", getNomeCliente()));
-        Imprimir.i(String.format("Número da conta: %s", getNumConta()));
-        Imprimir.i(String.format("Saldo: %.2f", getSaldoPP()));
+        Imprimir.i(String.format("Saldo: %.2f\n", getSaldoPP()));
 
     }
 
     @Override
-    public void infClienteEspecial(String msg) {
+    public void infClienteEspecial(String msg, String complementoMsg) {
 
-        setClienteEspecial(msg.equalsIgnoreCase("S"));
+        setClienteEspecial(Pergunta.q(msg, complementoMsg));
+
     }
 }

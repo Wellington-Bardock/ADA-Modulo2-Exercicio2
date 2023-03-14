@@ -1,7 +1,7 @@
 public class ContaCorrente extends Conta{
 
-    public static final String VALOR_INSUFICIENTE = "Valor Insuficiente";
-    public static final String TRANSACAO_EFETUADA = "Transação Efetuada";
+    public static final String VALOR_INSUFICIENTE = "Valor Insuficiente, Transação Não Efetuada!\n";
+    public static final String TRANSACAO_EFETUADA = "Transação Efetuada!\n";
     private double saldoCC;
 
     public double getSaldoCC() {
@@ -11,8 +11,9 @@ public class ContaCorrente extends Conta{
     @Override
     public double depositar(double valor) {
         saldoCC= saldoCC + valor;
+        Imprimir.i(TRANSACAO_EFETUADA);
 
-        return 0;
+        return saldoCC;
     }
 
     @Override
@@ -25,21 +26,18 @@ public class ContaCorrente extends Conta{
         else {saldoCC= saldoCC-valor;
             Imprimir.i(TRANSACAO_EFETUADA);}
 
-        return 0;
+        return saldoCC;
     }
 
     @Override
     public void exibirSaldo() {
-
-        Imprimir.i(String.format("Nome: %s", getNomeCliente()));
-        Imprimir.i(String.format("Número da conta: %s", getNumConta()));
-        Imprimir.i(String.format("Saldo: %.2f", getSaldoCC()));
-
+        Imprimir.i(String.format("Saldo: %.2f\n", getSaldoCC()));
     }
 
     @Override
-    public void infClienteEspecial(String msg) {
+    public void infClienteEspecial(String msg, String complementoMsg) {
 
-        setClienteEspecial(msg.equalsIgnoreCase("S"));
+        setClienteEspecial(Pergunta.q(msg, complementoMsg));
+
     }
 }

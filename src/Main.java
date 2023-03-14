@@ -12,81 +12,122 @@ public class Main {
             1 - Depósito
             2 - Saque""";
 
-    public static final String MENU_NOME = "Por favor, informar o usuário";
-    public static final String MENU_CONTA = "Por favor, informar a conta";
+    public static final String MENU_NOME = "Por favor, informar o seu nome:";
+    public static final String MENU_CONTA = "Por favor informar a sua conta:\n";
+    public static final String INTRODUCAO_NOME = "Olá %s!\n";
     public static final String VALOR_DE_DEPOSITO = "Qual o valor de depósito?";
     public static final String VALOR_DE_SAQUE = "Qual o valor de saque?";
-    public static final String CLIENTE_ESPECIAL = "Você é cliente especial?";
-    public static final String REALIZAR_OUTRA_OPERACAO = "Gostaria de realizar outra operação?";
+    public static final String CLIENTE_ESPECIAL = "Você é cliente especial? (S/N)";
+    public static final String REALIZAR_OUTRA_OPERACAO = "Gostaria de realizar outra operação? (S/N)";
+    public static final String VALOR_INVALIDO_TENTE_NOVAMENTE = "Valor Invalido!";
+    public static final String CHECAGEM_SALDO = "Gostaria de ver o seu saldo? (S/N)";
+
+    public static Scanner sc = new Scanner(System.in);
+    public static ContaCorrente CC = new ContaCorrente();
+    public static ContaPoupanca CP = new ContaPoupanca();
+
+    static boolean checkconta;
+    static boolean loop;
+    static boolean checkClienteEspecial;
+    static boolean checkSaldo;
 
     public static void main(String[] args) {
-
-        double valorsaque;
-        double valordeposito;
-        String loop;
-
-        Scanner sc = new Scanner(System.in);
-        ContaCorrente CC = new ContaCorrente();
-        ContaPoupanca CP = new ContaPoupanca();
 
         Imprimir.i(MENU_NOME);
         CC.setNomeCliente(sc.nextLine());
         CP.setNomeCliente(CC.getNomeCliente());
 
-        Imprimir.i(MENU_CONTA);
-        CC.setNumConta(Integer.parseInt(sc.nextLine()));
-        CP.setNumConta(CC.getNumConta());
-
-        Imprimir.i(CLIENTE_ESPECIAL);
-        String informeCE = sc.nextLine();
-        CC.infClienteEspecial(informeCE);
-        CP.infClienteEspecial(informeCE);
+        Imprimir.i(INTRODUCAO_NOME, CC.getNomeCliente());
 
         do {
 
-            Imprimir.i(MENU_INICIAL);
+            try {
 
-            int menuInicial = Integer.parseInt(sc.nextLine());
+                checkconta = true;
 
-            if (menuInicial == 1) {
+                Imprimir.i(MENU_CONTA, CC.getNomeCliente());
+                CC.setNumConta(Integer.parseInt(sc.nextLine()));
+                CP.setNumConta(CC.getNumConta());
 
-                Imprimir.i(MENU_OPERACAO);
-                int menuOperacao = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                Imprimir.i(VALOR_INVALIDO_TENTE_NOVAMENTE);
+                checkconta = false;
+            }
 
-                if (menuOperacao == 1) {
-                    Imprimir.i(VALOR_DE_DEPOSITO);
-                    valordeposito = Double.parseDouble(sc.nextLine());
-                    CC.depositar(valordeposito);
-                    CC.exibirSaldo();
+        } while (!checkconta);
 
-                } else if (menuOperacao == 2) {
-                    Imprimir.i(VALOR_DE_SAQUE);
-                    valorsaque = Double.parseDouble(sc.nextLine());
-                    CC.sacar(valorsaque);
-                    CC.exibirSaldo();
+        Imprimir.i(CLIENTE_ESPECIAL);
+        checkClienteEspecial = Pergunta.q(sc.nextLine(), CLIENTE_ESPECIAL);
 
-                }
-            } else if (menuInicial == 2) {
+        do {
 
-                Imprimir.i(MENU_OPERACAO);
-                int menuOperacao = Integer.parseInt(sc.nextLine());
+            try {
 
-                if (menuOperacao == 1) {
-                    Imprimir.i(VALOR_DE_DEPOSITO);
-                    valordeposito = Double.parseDouble(sc.nextLine());
-                    CP.depositar(valordeposito);
-                    CP.exibirSaldo();
+                Imprimir.i(MENU_INICIAL);
 
-                } else if (menuOperacao == 2) {
-                    Imprimir.i(VALOR_DE_SAQUE);
-                    valorsaque = Double.parseDouble(sc.nextLine());
-                    CP.sacar(valorsaque);
-                    CP.exibirSaldo();
-                }
+                int menuInicial = Integer.parseInt(sc.nextLine());
 
-            } Imprimir.i(REALIZAR_OUTRA_OPERACAO);
-              loop = sc.nextLine();
+                if (menuInicial == 1) {
 
-        } while (loop.equalsIgnoreCase("S"));
+                    CC.setClienteEspecial(checkClienteEspecial);
+
+                    Imprimir.i(MENU_OPERACAO);
+                    int menuOperacao = Integer.parseInt(sc.nextLine());
+
+                    if (menuOperacao == 1) {
+                        Imprimir.i(VALOR_DE_DEPOSITO);
+                        CC.depositar(Double.parseDouble(sc.nextLine()));
+
+                    } else if (menuOperacao == 2) {
+                        Imprimir.i(VALOR_DE_SAQUE);
+                        CC.sacar(Double.parseDouble(sc.nextLine()));
+                    }
+
+                } else if (menuInicial == 2) {
+
+                    CP.setClienteEspecial(checkClienteEspecial);
+
+                    Imprimir.i(MENU_OPERACAO);
+                    int menuOperacao = Integer.parseInt(sc.nextLine());
+
+                    if (menuOperacao == 1) {
+                        Imprimir.i(VALOR_DE_DEPOSITO);
+                        CP.depositar(Double.parseDouble(sc.nextLine()));
+
+                    } else if (menuOperacao == 2) {
+                        Imprimir.i(VALOR_DE_SAQUE);
+                        CP.sacar(Double.parseDouble(sc.nextLine()));
+
+                    }
+
+                } amostragemSaldos();
+
+            } catch (NumberFormatException e) {
+                Imprimir.i(VALOR_INVALIDO_TENTE_NOVAMENTE);
+
+            }
+            Imprimir.i(REALIZAR_OUTRA_OPERACAO);
+            loop = Pergunta.q(sc.nextLine(), REALIZAR_OUTRA_OPERACAO);
+
+        } while (loop);
+    }
+
+    public static void amostragemSaldos () {
+
+        Imprimir.i(CHECAGEM_SALDO);
+        checkSaldo = Pergunta.q(sc.nextLine(),CHECAGEM_SALDO);
+
+
+        if (checkSaldo) {
+
+            Imprimir.i("Nome: " + CC.getNomeCliente());
+            Imprimir.i("Nº da Conta: " + CC.getNumConta() + "\n");
+
+            Imprimir.i("Conta Corrente:");
+            CC.exibirSaldo();
+            Imprimir.i("Conta Poupança:");
+            CP.exibirSaldo();
+
+        }
     }
 }

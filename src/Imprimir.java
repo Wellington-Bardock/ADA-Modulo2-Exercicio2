@@ -6,4 +6,9 @@ public class Imprimir {
 
     }
 
+    public static void i (String msg, String obj) {
+
+        System.out.printf(msg, obj);
+    }
+
 }

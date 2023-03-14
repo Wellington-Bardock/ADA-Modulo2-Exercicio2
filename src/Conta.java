@@ -36,6 +36,6 @@ public abstract class Conta {
 
     public abstract void exibirSaldo ();
 
-    public abstract void infClienteEspecial(String msg);
+    public abstract void infClienteEspecial(String msg, String msg2);
 
 }
