@@ -57,7 +57,7 @@ public class Main {
         } while (!checkconta);
 
         Imprimir.i(CLIENTE_ESPECIAL);
-        checkClienteEspecial = Pergunta.q(sc.nextLine(), CLIENTE_ESPECIAL);
+        checkClienteEspecial = Perguntar.q(sc.nextLine(), CLIENTE_ESPECIAL);
 
         do {
 
@@ -107,7 +107,7 @@ public class Main {
 
             }
             Imprimir.i(REALIZAR_OUTRA_OPERACAO);
-            loop = Pergunta.q(sc.nextLine(), REALIZAR_OUTRA_OPERACAO);
+            loop = Perguntar.q(sc.nextLine(), REALIZAR_OUTRA_OPERACAO);
 
         } while (loop);
     }
@@ -115,7 +115,7 @@ public class Main {
     public static void amostragemSaldos () {
 
         Imprimir.i(CHECAGEM_SALDO);
-        checkSaldo = Pergunta.q(sc.nextLine(),CHECAGEM_SALDO);
+        checkSaldo = Perguntar.q(sc.nextLine(),CHECAGEM_SALDO);
 
 
         if (checkSaldo) {

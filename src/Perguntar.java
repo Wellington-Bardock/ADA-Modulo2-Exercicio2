@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Pergunta {
+public class Perguntar {
 
     public static final String OPCAO_INVALIDA = "Opção Inválida!";
     public static Scanner sc = new Scanner(System.in);

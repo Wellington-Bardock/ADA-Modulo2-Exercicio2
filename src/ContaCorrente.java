@@ -37,7 +37,7 @@ public class ContaCorrente extends Conta{
     @Override
     public void infClienteEspecial(String msg, String complementoMsg) {
 
-        setClienteEspecial(Pergunta.q(msg, complementoMsg));
+        setClienteEspecial(Perguntar.q(msg, complementoMsg));
 
     }
 }
